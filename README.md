@@ -84,12 +84,12 @@ make BUILD=RELEASE
 
 **NOTE:** Please use `BUILD=DEBUG` when asked for your debug logs.
 
-Install xow as a `systemd` service (starts xow at boot time):
+Install xow as a `systemd` user service (starts xow at boot time):
 
 ```
 sudo make install
-sudo systemctl enable xow
-sudo systemctl start xow
+systemctl --user enable xow
+systemctl --user start xow
 ```
 
 **NOTE:** A reboot might be required for xow to work correctly.
@@ -99,10 +99,12 @@ sudo systemctl start xow
 Make sure to completely uninstall xow before updating:
 
 ```
-sudo systemctl stop xow
-sudo systemctl disable xow
+systemctl --user stop xow
+systemctl --user disable xow
 sudo make uninstall
 ```
+
+**NOTE:** If you are running a version lower than 0.6, you **have to** substitute `systemctl --user` with `sudo systemctl` for the aforementioned commands.
 
 ## Interoperability
 

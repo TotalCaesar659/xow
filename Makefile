@@ -21,7 +21,7 @@ BINDIR := $(PREFIX)/bin
 UDEVDIR := /etc/udev/rules.d
 MODLDIR := /etc/modules-load.d
 MODPDIR := /etc/modprobe.d
-SYSDDIR := /etc/systemd/system
+SYSDDIR := /etc/systemd/user
 
 .PHONY: all
 all: xow
@@ -47,7 +47,7 @@ xow.service: install/service.in
 .PHONY: install
 install: xow xow.service
 	install -D -m 755 xow $(DESTDIR)$(BINDIR)/xow
-	install -D -m 644 install/udev.rules $(DESTDIR)$(UDEVDIR)/99-xow.rules
+	install -D -m 644 install/udev.rules $(DESTDIR)$(UDEVDIR)/50-xow.rules
 	install -D -m 644 install/modules.conf $(DESTDIR)$(MODLDIR)/xow-uinput.conf
 	install -D -m 644 install/modprobe.conf $(DESTDIR)$(MODPDIR)/xow-blacklist.conf
 	install -D -m 644 xow.service $(DESTDIR)$(SYSDDIR)/xow.service
@@ -56,7 +56,7 @@ install: xow xow.service
 .PHONY: uninstall
 uninstall:
 	$(RM) $(DESTDIR)$(BINDIR)/xow
-	$(RM) $(DESTDIR)$(UDEVDIR)/99-xow.rules
+	$(RM) $(DESTDIR)$(UDEVDIR)/50-xow.rules
 	$(RM) $(DESTDIR)$(MODLDIR)/xow-uinput.conf
 	$(RM) $(DESTDIR)$(MODPDIR)/xow-blacklist.conf
 	$(RM) $(DESTDIR)$(SYSDDIR)/xow.service
