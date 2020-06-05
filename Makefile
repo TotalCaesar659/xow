@@ -8,7 +8,7 @@ RELEASE_FLAGS := -O3
 DEFINES := -DVERSION=\"$(VERSION)\" -DLOCK_FILE=\"$(LOCK_FILE)\"
 
 CXXFLAGS += $(FLAGS) $($(BUILD)_FLAGS) $(DEFINES)
-LDLIBS += -lstdc++ -lm -lpthread -lusb-1.0
+LDLIBS += -lstdc++ -lm -lpthread -lusb-1.0 -lsystemd
 SOURCES := $(wildcard *.cpp) $(wildcard */*.cpp)
 OBJECTS := $(patsubst %.cpp,%.o,$(SOURCES)) firmware.o
 DEPENDENCIES := $(OBJECTS:.o=.d)

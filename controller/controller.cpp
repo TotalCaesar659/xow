@@ -18,6 +18,7 @@
 
 #include "controller.h"
 #include "../utils/log.h"
+#include "../utils/notify.h"
 
 #include <cstdlib>
 #include <cmath>
@@ -90,6 +91,8 @@ void Controller::statusReceived(uint8_t id, const StatusData *status)
     }
 
     Log::info("Battery level: %d", level);
+
+    showBatteryNotification(level);
 
     batteryLevel = level;
 }
@@ -235,6 +238,42 @@ void Controller::initInput(const AnnounceData *announce)
         deviceConfig.version = version;
 
         inputDevice.create(DEVICE_NAME, deviceConfig);
+    }
+}
+
+void Controller::showBatteryNotification(uint8_t level)
+{
+    const std::string levels[] = {
+        "empty",
+        "low",
+        "medium",
+        "full"
+    };
+
+    const std::string sounds[] = {
+        "battery-low",
+        "battery-caution",
+        "battery-full",
+        "battery-full"
+    };
+
+    const Notify::Urgency urgencies[] = {
+        Notify::URGENCY_CRITICAL,
+        Notify::URGENCY_CRITICAL,
+        Notify::URGENCY_LOW,
+        Notify::URGENCY_LOW
+    };
+
+    Notify::Notification notification = {};
+
+    notification.summary = "Controller battery report";
+    notification.body = "<b>Battery level: </b>" + levels[level];
+    notification.sound = sounds[level];
+    notification.urgency = urgencies[level];
+
+    if (!Notify::showNotification(notification))
+    {
+        Log::error("Error showing battery notification");
     }
 }
 

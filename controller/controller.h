@@ -43,6 +43,7 @@ private:
     void initInput(const AnnounceData *announce);
 
     /* OS interface */
+    void showBatteryNotification(uint8_t level);
     void inputFeedbackReceived(
         uint16_t gain,
         ff_effect effect,

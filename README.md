@@ -68,7 +68,7 @@ Any issues regarding the packaging should be reported to the respective maintain
 - curl (for proprietary driver download)
 - cabextract (for firmware extraction)
 - libusb (libusb-1.0-0-dev for Debian)
-- systemd (version 232 or newer)
+- libsystemd (libsystemd-dev for Debian)
 
 Clone the repository (necessary for version tagging to work):
 
@@ -128,6 +128,8 @@ sudo systemctl kill -s SIGUSR1 xow
 - `Mt76Exception` or `LIBUSB_ERROR_NO_DEVICE`
     - Make sure that you are only running one instance of xow at a time.
     If you are running xow manually you have to stop the `systemd` service.
+- `Error showing battery notification`
+    - Make sure that you installed xow as a *user service*. System services and the `root` user do not have access to the notification system.
 
 ### Configuration issues
 
